@@ -3,7 +3,6 @@ package database
 import (
    "fmt"
    "os"
-   "strconv"
    "github.com/gin-gonic/gin"
    "github.com/jinzhu/gorm"
    _ "github.com/jinzhu/gorm/dialects/postgres"
@@ -17,13 +16,13 @@ var (
 func Connect() {
     var err error
     host := os.Getenv("DB_HOST")
-    port, _ := strconv.Atoi(os.Getenv("DB_PORT")) // convert to int since port is int type
+    port := os.Getenv("DB_PORT") // convert to int since port is int type
     user := os.Getenv("DB_USER")
     dbname := os.Getenv("DB_NAME")
     pass := os.Getenv("DB_PASSWORD")
 
     // TODO: Enable SSL verification
-    dsn := fmt.Sprintf("postgresql://%s:%s@%s:%d/%s?sslmode=disable", user, pass, host, port, dbname)
+    dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable", user, pass, host, port, dbname)
     db, err = gorm.Open("postgres", dsn)
     if err != nil {
         panic("Failed to connect to database")
@@ -41,6 +40,7 @@ type Location struct {
     PeakYear int `json:"peakYear"`
 }
 
+// TODO: Create new language module?
 type Language struct {
     ID  string `json:"id"`
     Language string `json:"language"`

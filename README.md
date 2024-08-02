@@ -2,7 +2,7 @@
 
 ## Local Setup
 
-Install postgresql.  If using a Mac, you can download via Brew:
+Install Postgres.  If using a Mac, you can download Postgres via Brew:
 ```shell
 brew install postgresql
 ```
@@ -18,3 +18,6 @@ Run the script `create_tables.sql` to create `locations` and `languages` tables.
 ```shell
 psql -U [user] -d stats -a -f scripts/create_tables.sql
 ```
+
+### Notes on Example Data
+Locations and languages are accurate, but the `estimated_speakers` for each language is not accurate and just a Proof-of-Concept
