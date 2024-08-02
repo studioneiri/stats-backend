@@ -2,6 +2,7 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
+    "github.com/gin-contrib/cors"
     "studio.neiri/database"
 )
 
@@ -12,15 +13,16 @@ func init() {
 }
 
 func main() {
-    r := gin.Default()
+    router := gin.Default()
+    router.Use(cors.Default())
     // Routes
-    r.GET("/locations", database.GetLocations)
-    r.GET("/languages", database.GetLanguages)
-    r.POST("/locations", database.CreateLocation)
-    r.GET("/locations/:id", database.GetLocationByID)
-    r.GET("/languages/:id", database.GetLanguagesById)
-    r.DELETE("/locations/:id", database.DeleteLocationByID)
+    router.GET("/locations", database.GetLocations)
+    router.GET("/languages", database.GetLanguages)
+    router.POST("/locations", database.CreateLocation)
+    router.GET("/locations/:id", database.GetLocationByID)
+    router.GET("/languages/:id", database.GetLanguagesById)
+    router.DELETE("/locations/:id", database.DeleteLocationByID)
 
     // Start server
-    r.Run("localhost:8080")
+    router.Run("localhost:8080")
 }
